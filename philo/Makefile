@@ -10,7 +10,7 @@ CFLAGS = -Wall -Wextra -Werror -pthread #-g -fsanitize=address
 DIR_BUILD = build/
 INC = -I includes
 
-SRCS = main.c utils.c check.c params.c error.c
+SRCS = main.c utils.c check.c params.c time.c actions.c error.c
 
 OBJS = $(addprefix $(DIR_BUILD), $(SRCS:.c=.o))
 
