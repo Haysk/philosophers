@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:51:33 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/11/16 20:51:11 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/11/17 12:14:17 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	free_params(t_params *params)
 
 	i = 0;
 	free(params->philos);
+	free(params->nurses);
 	while (i < params->nbr_philo)
 	{
 		pthread_mutex_destroy(&params->m_forks[i]);
