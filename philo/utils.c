@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:51:33 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/11/17 14:21:52 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/11/22 18:14:15 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,15 @@ void	free_params(t_params *params)
 	int	i;
 
 	i = 0;
-	free(params->philos);
-	free(params->nurses);
+	pthread_mutex_destroy(&params->speak);
+	pthread_mutex_destroy(&params->stop);
 	while (i < params->nbr_philo)
 	{
 		pthread_mutex_destroy(&params->m_forks[i]);
 		i++;
 	}
-	pthread_mutex_destroy(&params->speak);
-	pthread_mutex_destroy(&params->stop);
 	free(params->m_forks);
+	free(params->philos);
 }
 
 int	my_usleep(unsigned int usec)

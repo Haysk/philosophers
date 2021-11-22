@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 10:53:22 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/11/17 19:11:03 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/11/22 16:25:53 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int		my_atopi(const char *str, int *error);
 int		check_params(char	**args);
 int		init_params(t_params *params, int argc, char **argv);
 int		put_message(char *message, t_philo *philo, long int time, int lock);
+void	take_fork(t_philo *philo);
 int		ph_eat(t_philo *philo);
-int		ph_sleep(t_philo *philo);
-int		ph_died(t_philo *philo);
+void	leave_fork(t_philo *philo);
+int		ph_died(t_params *params, int i);
 #endif
