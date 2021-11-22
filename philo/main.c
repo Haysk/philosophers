@@ -6,47 +6,62 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:24:33 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/11/17 19:54:43 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/11/22 13:30:18 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "headers.h"
 
-void	*routine_nurse(void *philo)
+void	*routine_nurse(void *ptr_philo)
 {
-	t_philo	*ptr_philo;
+	t_philo	*philo;
 	t_params	*params;
 
-	ptr_philo = (t_philo *)philo;
-	params = ptr_philo->params;
-	while (!ptr_philo->eat_finished && !ptr_philo->is_dead)
-		ptr_philo->is_dead = ph_died(philo);
-	if (ptr_philo->eat_finished)
-		params->eat_finished++;
-	if (params->eat_finished == params->nbr_philo)
+	philo = (t_philo *)ptr_philo;
+	params = philo->params;
+	while (params->eat_finished != params->nbr_philo)
 	{
-		pthread_mutex_unlock(&params->stop);
-		return (0);
+//		pthread_mutex_lock(&params->nurse);
+		if (ph_died(philo))
+		{
+			params->eat_finished = params->nbr_philo;
+			pthread_mutex_unlock(&philo->params->stop);
+			return (0);
+		}
+//		pthread_mutex_unlock(&params->nurse);
+//		usleep(100);
 	}
-	if (ptr_philo->is_dead)
-	{
-		put_message("die", ptr_philo, get_timestamp(params), 1);
-		pthread_mutex_unlock(&params->stop);
-	}
+	pthread_mutex_unlock(&params->stop);
+//	while (!ptr_philo->eat_finished && !ptr_philo->is_dead)
+//		ptr_philo->is_dead = ph_died(philo);
+//	if (ptr_philo->eat_finished)
+//		params->eat_finished++;
+//	if (params->eat_finished == params->nbr_philo)
+//	{
+//		pthread_mutex_unlock(&params->stop);
+//		return (0);
+//	}
+//	if (ptr_philo->is_dead)
+//	{
+//		put_message("die", ptr_philo, get_timestamp(params), 1);
+//		pthread_mutex_unlock(&params->stop);
+//	}
 	return (0);
 }
-void	*routine(void *philo)
+void	*routine(void *ptr_philo)
 {
-	t_philo	*ptr_philo;
+	t_philo	*philo;
 
-	ptr_philo = (t_philo *)philo;
-	while (ptr_philo->remaining_eat != 0)
+	philo = (t_philo *)ptr_philo;
+	if (philo->id % 2)
+		usleep(60);
+	while (philo->remaining_eat != 0)
 	{
-		ph_eat(ptr_philo);
-		if (ptr_philo->remaining_eat)
-			ph_sleep(ptr_philo);
+		ph_eat(philo);
+		if (philo->remaining_eat)
+			ph_sleep(philo);
 	}
-	ptr_philo->eat_finished = 1;
+	philo->eat_finished = 1;
 	return (0);
 }
 
@@ -59,6 +74,7 @@ int	create_threads(t_params *params)
 	philos = params->philos;
 	while (i < params->nbr_philo)
 	{
+			printf("time : %li\n", get_timestamp(params));
 		if (pthread_create(&philos[i].thread, NULL, routine, philos + i) != 0 ||
 			pthread_create(&params->nurses[i], NULL, routine_nurse, philos + i) != 0)
 			return (1);

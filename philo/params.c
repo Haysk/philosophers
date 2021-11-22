@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:29:28 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/11/17 18:39:17 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/11/18 19:59:26 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	init_mutex(t_params *params)
 
 	i = 0;
 	pthread_mutex_init(&params->speak, NULL);
+	pthread_mutex_init(&params->nurse, NULL);
 	pthread_mutex_init(&params->stop, NULL);
 	pthread_mutex_lock(&params->stop);
 	while (i < params->nbr_philo)

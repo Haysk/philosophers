@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 21:06:22 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/11/17 19:56:49 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/11/22 13:38:04 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,13 @@ int	ph_eat(t_philo *philo)
 {
 	long int	time;
 
-	time = get_time();
-	put_message("is thinking", philo, get_timestamp(philo->params), 0);
-	use_fork(philo, philo->fork_right, 1);
 	use_fork(philo, philo->fork_left, 1);
-	put_message("is eating", philo, get_timestamp(philo->params), 0);
-	while (get_time() - time < philo->params->time_to_eat)
-		usleep(10);
-	philo->last_eat = time + philo->params->time_to_eat; 
+	use_fork(philo, philo->fork_right, 1);
+	time = get_timestamp(philo->params);
+	put_message("is eating", philo, time, 0);
+	while (get_timestamp(philo->params) - time < philo->params->time_to_eat)
+		usleep(200);
+	philo->last_eat = time + philo->params->time_to_eat;
 	philo->remaining_eat--;
 	use_fork(philo, philo->fork_right, 0);
 	use_fork(philo, philo->fork_left, 0);
@@ -55,16 +54,22 @@ int	ph_sleep(t_philo *philo)
 {
 	long int	time;
 
-	time = get_time();
-	put_message("is sleeping", philo, get_timestamp(philo->params), 0);
-	while (get_time() - time < philo->params->time_to_sleep)
-		usleep(10);
+	time = get_timestamp(philo->params);
+	put_message("is sleeping", philo, time, 0);
+	while (get_timestamp(philo->params) - time < philo->params->time_to_sleep)
+		usleep(200);
+	put_message("is thinking", philo, get_timestamp(philo->params), 0);
 	return (1);
 }
 
 int	ph_died(t_philo *philo)
 {
-	if (get_time() - philo->last_eat > philo->params->time_to_die)
+	if (get_timestamp(philo->params) - philo->last_eat
+		> philo->params->time_to_die)
+	{
+			printf("last eat : %i, time : %li, dead : %i\n", philo->last_eat, get_timestamp(philo->params), philo->params->time_to_die);
+		put_message("die", philo, get_timestamp(philo->params), 1);
 		return (1);
+	}
 	return (0);
 }
