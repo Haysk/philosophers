@@ -3,7 +3,7 @@ NAME = philo
 #COMPILE
 
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -pthread #-g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -pthread -g3 -fsanitize=address
 
 #DIRECTORY
 
@@ -13,7 +13,6 @@ INC = -I includes
 SRCS = main.c utils.c check.c params.c time.c actions.c error.c
 
 OBJS = $(addprefix $(DIR_BUILD), $(SRCS:.c=.o))
-
 
 Black = \e[1;30m
 Red = \e[1;31m

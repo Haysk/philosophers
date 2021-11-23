@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 21:06:22 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/11/22 18:16:08 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/11/23 16:04:45 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,18 @@ void	take_fork(t_philo *philo)
 
 void	leave_fork(t_philo *philo)
 {
-	long int	time;
-
-	put_message("is sleeping", philo, get_timestamp(philo->params), 0);
 	pthread_mutex_unlock(&philo->params->m_forks[philo->fork_left]);
 	pthread_mutex_unlock(&philo->params->m_forks[philo->fork_right]);
+}
+
+int	ph_sleep(t_philo *philo)
+{
+	long int	time;
+	put_message("is sleeping", philo, get_timestamp(philo->params), 0);
 	time = get_time();
 	while (get_time() - time < philo->params->time_to_sleep)
 		usleep(200);
+	return (1);
 }
 
 int	ph_eat(t_philo *philo)
@@ -54,9 +58,6 @@ int	ph_eat(t_philo *philo)
 int	ph_died(t_params *params, int i)
 {
 	if (get_time() - params->philos[i].last_eat > params->time_to_die)
-	{
-		put_message("die", &params->philos[i], get_timestamp(params), 1);
 		return (1);
-	}
 	return (0);
 }
