@@ -41,4 +41,7 @@ int		ph_eat(t_philo *philo);
 int		ph_sleep(t_philo *philo);
 void	leave_fork(t_philo *philo);
 int		ph_died(t_params *params, int i);
+
+void	ft_putstr(char *str);
+
 #endif

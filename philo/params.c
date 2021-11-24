@@ -52,6 +52,7 @@ int	init_params(t_params *params, int argc, char **argv)
 	int	error;
 
 	error = 0;
+	params->quit = 0;
 	params->nbr_philo = my_atopi(argv[0], &error);
 	params->time_to_die = my_atopi(argv[1], &error);
 	params->time_to_eat = my_atopi(argv[2], &error);

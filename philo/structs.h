@@ -34,6 +34,7 @@ typedef struct s_params
 	int	time_to_eat;
 	int	time_to_sleep;
 	int	nbr_eat;
+	int	quit;
 	long int	time;
 	t_philo			*philos;
 	pthread_t	nurses;	
@@ -41,7 +42,5 @@ typedef struct s_params
 	pthread_mutex_t	speak;
 	pthread_mutex_t	stop;
 }				t_params;
-
-
 
 #endif

@@ -2,8 +2,8 @@ NAME = philo
 
 #COMPILE
 
-CC = clang
-CFLAGS = -Wall -Wextra -Werror -pthread -g3 -fsanitize=address
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -pthread -g3 #-fsanitize=address
 
 #DIRECTORY
 

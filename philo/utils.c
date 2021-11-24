@@ -12,11 +12,22 @@
 
 #include "headers.h"
 
+void	ft_putstr(char *str)
+{
+	int	i;
+	
+	i = 0;
+	while (str[i])
+		i++;
+	write (1, str, i);
+}
+
 void	free_params(t_params *params)
 {
 	int	i;
 
 	i = 0;
+	printf("free\n");
 	pthread_mutex_destroy(&params->speak);
 	pthread_mutex_destroy(&params->stop);
 	while (i < params->nbr_philo)

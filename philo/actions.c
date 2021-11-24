@@ -38,8 +38,8 @@ void	leave_fork(t_philo *philo)
 int	ph_sleep(t_philo *philo)
 {
 	long int	time;
-	put_message("is sleeping", philo, get_timestamp(philo->params), 0);
 	time = get_time();
+	put_message("is sleeping", philo, get_timestamp(philo->params), 0);
 	while (get_time() - time < philo->params->time_to_sleep)
 		usleep(200);
 	return (1);
