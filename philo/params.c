@@ -6,12 +6,11 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 16:29:28 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/11/23 17:29:07 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/11/24 18:56:34 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "headers.h"
-
 
 void	init_mutex(t_params *params)
 {
@@ -61,7 +60,7 @@ int	init_params(t_params *params, int argc, char **argv)
 	if (argc == 5)
 		params->nbr_eat = my_atopi(argv[4], &error);
 	params->philos = malloc(sizeof(t_philo) * params->nbr_philo);
-	if (params->philos == NULL) 
+	if (params->philos == NULL)
 		return (1);
 	params->m_forks = malloc(sizeof(pthread_mutex_t) * params->nbr_philo);
 	if (params->m_forks == NULL)

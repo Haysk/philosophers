@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 16:24:33 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/11/17 17:38:56 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/11/24 18:15:21 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ long int	time_to_ms(time_t sec, suseconds_t usec)
 	return (result);
 }
 
-long int	get_time()
+long int	get_time(void)
 {
-	long int	time;
+	long int		time;
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);

@@ -6,16 +6,17 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 21:06:22 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/11/24 19:03:23 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/11/24 16:27:18 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "headers.h"
 
-int	put_message(char *message, t_philo *philo, int i)
+int	put_message(char *message, t_philo *philo, long int time, int i)
 {
 	pthread_mutex_lock(&philo->params->speak);
-	printf("%li %i %s\n", get_timestamp(philo->params), philo->id, message);
+//	if (philo->remaining_eat != 0 && !philo->params->quit)
+		printf("%li %i %s\n", time, philo->id, message);
 	if (i == 0)
 		pthread_mutex_unlock(&philo->params->speak);
 	return (0);
@@ -24,9 +25,9 @@ int	put_message(char *message, t_philo *philo, int i)
 void	take_fork(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->params->m_forks[philo->fork_left]);
+	put_message("has taken a fork", philo, get_timestamp(philo->params), 0);
 	pthread_mutex_lock(&philo->params->m_forks[philo->fork_right]);
-	put_message("has taken a fork", philo, 0);
-	put_message("has taken a fork", philo, 0);
+	put_message("has taken a fork", philo, get_timestamp(philo->params), 0);
 }
 
 void	leave_fork(t_philo *philo)
@@ -38,25 +39,22 @@ void	leave_fork(t_philo *philo)
 int	ph_sleep(t_philo *philo)
 {
 	long int	time;
-
 	time = get_time();
-	put_message("is sleeping", philo, 0);
-	while (get_time() - time < philo->params->time_to_sleep
-		&& !philo->params->quit)
+	put_message("is sleeping", philo, get_timestamp(philo->params), 0);
+	while (get_time() - time < philo->params->time_to_sleep)
 		usleep(200);
-	put_message("is thinking", philo, 0);
+	put_message("is thinking", philo, get_timestamp(philo->params), 0);
 	return (1);
 }
 
 int	ph_eat(t_philo *philo)
 {
 	philo->last_eat = get_time();
-	put_message("is eating", philo, 0);
+	put_message("is eating", philo, get_timestamp(philo->params), 0);
 	if (philo->remaining_eat > 0)
 		philo->remaining_eat--;
-	while (get_time() - philo->last_eat < philo->params->time_to_eat
-		&& !philo->params->quit)
-		usleep(250);
+	while (get_time() - philo->last_eat < philo->params->time_to_eat)
+		usleep(200);
 	return (1);
 }
 
