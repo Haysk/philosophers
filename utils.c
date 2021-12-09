@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/15 14:51:33 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/11/24 18:14:23 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/11/25 13:30:47 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	free_params(t_params *params)
 	int	i;
 
 	i = 0;
-	printf("free\n");
 	pthread_mutex_destroy(&params->stop);
 	pthread_mutex_destroy(&params->speak);
 	while (i < params->nbr_philo)
@@ -35,11 +34,8 @@ void	free_params(t_params *params)
 		pthread_mutex_destroy(&params->m_forks[i]);
 		i++;
 	}
-	ft_putstr("1");
 	free(params->m_forks);
-	ft_putstr("2");
 	free(params->philos);
-	ft_putstr("3");
 }
 
 int	my_atopi(const char *str, int *error)

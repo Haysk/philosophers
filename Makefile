@@ -3,7 +3,7 @@ NAME = philo
 #COMPILE
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -pthread -g3 -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -pthread 
 
 #DIRECTORY
 
