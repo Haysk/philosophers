@@ -6,7 +6,7 @@
 /*   By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 10:53:22 by adylewsk          #+#    #+#             */
-/*   Updated: 2021/11/24 19:01:16 by adylewsk         ###   ########.fr       */
+/*   Updated: 2021/12/09 18:09:31 by adylewsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,9 @@ int			ph_sleep(t_philo *philo);
 void		leave_fork(t_philo *philo);
 int			ph_died(t_philo *philos, t_params *params);
 void		ft_putstr(char *str);
+int			check_philos(t_params *params);
+void		*routine_nurse(void *ptr_params);
+void		*routine(void *ptr_philo);
+int			create_threads(t_params *params);
 
 #endif

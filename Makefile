@@ -1,16 +1,28 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: adylewsk <adylewsk@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/12/09 18:15:29 by adylewsk          #+#    #+#              #
+#    Updated: 2021/12/09 18:15:37 by adylewsk         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = philo
 
 #COMPILE
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -pthread 
+CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread 
 
 #DIRECTORY
 
 DIR_BUILD = build/
 INC = -I includes
 
-SRCS = main.c utils.c check.c params.c time.c actions.c error.c
+SRCS = main.c utils.c check.c params.c time.c actions.c threads.c message.c error.c
 
 OBJS = $(addprefix $(DIR_BUILD), $(SRCS:.c=.o))
 
@@ -40,7 +52,6 @@ $(NAME) : $(OBJS)
 $(OBJS): $(DIR_BUILD)%.o: %.c
 	$(CC) -c $(CFLAGS) $(INC) $< -o $@
 	echo "$(Cyan)BUILDING\033[5C->\033[5C$<$(End)"
-
 
 start:
 	echo "$(Green)__________$(NAME)____________$(End)"
